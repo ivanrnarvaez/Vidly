@@ -15,13 +15,14 @@ else
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <td>Customers</td>
-        </tr>
+            <th>Customers</th>
+            <th>Discount Rate</th></tr>
         </thead>
         @foreach (var customers in Model)
         {
             <tr>
                 <td>@Html.ActionLink(@customers.Name, "Detail", "Customers", new {id = @customers.Id}, null)</td>
+                <td>@customers.MembershipType.Name</td>
             </tr>
         }
             
