@@ -1,11 +1,19 @@
-﻿@model Vidly.Models.Customer
+﻿@using Microsoft.Ajax.Utilities
+@model Vidly.Models.Customer
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>@Model.Name</h1>
-<h2>Detail</h2>
-<h3>ID: @Model.Id</h3>
-
-
+<ul>
+    <li>Id: @Model.Id</li>
+    <li>Membership Type: @Model.MembershipType.Name</li>
+    @if (Model.BirthDate != null)
+        {
+            <li>Date of Birth:
+                    @Model.BirthDate.Value.ToString("dd MMMM yyyy")
+            </li>
+        }
+    
+</ul>
