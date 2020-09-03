@@ -25,12 +25,18 @@ namespace Vidly.Controllers.Api
 
         public IEnumerable<Movie> GetMovies()
         {
-            return _context.Movies.ToList();
+            return _context
+                .Movies
+                .Include(m => m.Genre)
+                .ToList();
         }
 
         public IHttpActionResult GetMovie(int id)
         {
-            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            var movie = _context
+                .Movies
+                .Include(m => m.Genre)
+                .SingleOrDefault(m => m.Id == id);
             if (movie == null)
                 return NotFound();
 
@@ -57,7 +63,7 @@ namespace Vidly.Controllers.Api
         }
 
         [HttpPut]
-        public void UpdateMovie(int id, MovieDto movieDto)
+        public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -69,10 +75,12 @@ namespace Vidly.Controllers.Api
             Mapper.Map<MovieDto, Movie>(movieDto, movieInDb);
 
             _context.SaveChanges();
+
+            return Ok();
         }
 
         [HttpDelete]
-        public void DeleteMovie(int id)
+        public IHttpActionResult DeleteMovie(int id)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -83,6 +91,8 @@ namespace Vidly.Controllers.Api
 
             _context.Movies.Remove(movieInDb);
             _context.SaveChanges();
+
+            return Ok();
         }
 
     }

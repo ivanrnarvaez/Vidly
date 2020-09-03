@@ -8,6 +8,15 @@ namespace Vidly.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Driver License")]
+        public string DriverLincese { get; set; }
+
+        [Required]
+        [Display(Name = "Registered phone")]
+        [StringLength(12)]
+        public string Phone { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -65,6 +74,15 @@ namespace Vidly.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Driver License")]
+        public string DriverLicense { get; set; }
+
+        [Required]
+        [Display(Name = "Registered phone number")]
+        [StringLength(12)]
+        public string Phone { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +97,7 @@ namespace Vidly.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        
     }
 
     public class ResetPasswordViewModel
